@@ -2,7 +2,6 @@ package fr.sekaijin.jberet;
 
 import java.util.Properties;
 
-import javax.batch.runtime.JobExecution;
 import javax.inject.Inject;
 
 import org.jberet.job.model.Job;
@@ -15,23 +14,27 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 
 @QuarkusMain
 public class Main implements QuarkusApplication {
-    @Inject
-    QuarkusJobOperator jobOperator;
-    
-    void start() {
-        Job job = new JobBuilder("programmatic")
-                .step(new StepBuilder("programmaticStep")
-                        .batchlet("programmaticBatchlet")
-                        .build())
-                .build();
-        
-        long executionId = jobOperator.start(job, new Properties());
-        JobExecution jobExecution = jobOperator.getJobExecution(executionId);
-    }
-    @Override
-    public int run(String... args) throws Exception {
-        start();
-        return 0;
-    }
-    
+	@Inject
+	QuarkusJobOperator jobOperator;
+
+	void start() {
+		Job job = new JobBuilder("programmatic")
+				.step(new StepBuilder("programmaticStep")
+//                      .batchlet("programmaticBatchlet")
+					.reader("myItemReader", new Properties())
+					.writer("myItemWriter", new Properties())
+					.checkpointPolicy("item")
+					.build())
+				.build();
+
+//		long executionId = 
+				jobOperator.start(job, new Properties());
+	}
+
+	@Override
+	public int run(String... args) throws Exception {
+		start();
+		return 0;
+	}
+
 }

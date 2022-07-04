@@ -15,6 +15,8 @@
     <quarkus.platform.version>2.10.0.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <version.org.jberet>1.4.5.Final</version.org.jberet>
+    <version.org.jberet.support>1.4.2.Final-SNAPSHOT</version.org.jberet.support>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -42,6 +44,11 @@
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+        <dependency>
+            <groupId>org.jberet</groupId>
+            <artifactId>jberet-se</artifactId>
+            <version>${version.org.jberet}</version>
+        </dependency>
   </dependencies>
   <build>
     <plugins>
