@@ -1,47 +1,46 @@
 package fr.sekaijin.jberet;
 
-import java.util.Properties;
+import javax.enterprise.event.Event;
 
-import javax.inject.Inject;
-
-import org.jberet.job.model.Job;
-import org.jberet.job.model.JobBuilder;
-import org.jberet.job.model.StepBuilder;
-import org.jboss.logging.Logger;
-
-import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
-import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
+import picocli.CommandLine;
 
 @QuarkusMain
 public class Main implements QuarkusApplication {
-	@Inject
-	QuarkusJobOperator jobOperator;
-	
-	Logger LOGGER = Logger.getLogger(Main.class);
 
-	long start() {
-		Job job = new JobBuilder("programmatic")
-				.step(new StepBuilder("programmaticStep")
-//                      .batchlet("programmaticBatchlet")
-					.reader("myItemReader", new Properties())
-					.writer("myItemWriter", new Properties())
-					.build())
-				.build();
+    private static final class EventExecutionStrategy implements CommandLine.IExecutionStrategy {
+        private final CommandLine.IExecutionStrategy executionStrategy;
+        private final Event<CommandLine.ParseResult> parseResultEvent;
 
-//		long executionId = 
-			return	jobOperator.start(job, new Properties());
-	}
+        private EventExecutionStrategy(CommandLine.IExecutionStrategy executionStrategy,
+                Event<CommandLine.ParseResult> parseResultEvent) {
+            this.executionStrategy = executionStrategy;
+            this.parseResultEvent = parseResultEvent;
+        }
 
-	@Override
-	public int run(String... args) throws Exception {
-		long executionId = start();
-		Quarkus.waitForExit();
-		LOGGER.info(jobOperator.getJobExecution(executionId).getStartTime());
-		LOGGER.info(jobOperator.getJobExecution(executionId).getEndTime());
-		LOGGER.info(jobOperator.getJobExecution(executionId).getExitStatus());
-		return 0;
-	}
+        @Override
+        public int execute(CommandLine.ParseResult parseResult)
+                throws CommandLine.ExecutionException, CommandLine.ParameterException {
+            parseResultEvent.fire(parseResult);
+            return executionStrategy.execute(parseResult);
+        }
+    }
 
+    private final CommandLine commandLine;
+
+    public Main(CommandLine commandLine, Event<CommandLine.ParseResult> parseResultEvent) {
+        this.commandLine = commandLine
+                .setExecutionStrategy(new EventExecutionStrategy(commandLine.getExecutionStrategy(), parseResultEvent));
+    }
+
+    @Override
+    public int run(String... args) throws Exception {
+        try {
+            return commandLine.execute(args);
+        } finally {
+            commandLine.getOut().flush();
+            commandLine.getErr().flush();
+        }
+    }
 }

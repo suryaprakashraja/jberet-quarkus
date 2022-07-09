@@ -19,7 +19,7 @@ public class MockReader extends AbstractItemReader {
 	@Override
 	public Object readItem() throws Exception {
 		LOGGER.infof("read %d", count);
-		if (10000 < count ) {
+		if (100 < count ) {
 			return null;
 		} else {
 			return count ++;

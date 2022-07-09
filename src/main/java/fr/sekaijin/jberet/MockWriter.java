@@ -18,6 +18,14 @@ public class MockWriter extends AbstractItemWriter {
 	public void writeItems(List<Object> items) throws Exception {
 		LOGGER.infof("write %s", items);
 		
+//		for (Object object : items) {
+//			Exchange e = Exchange.class.cast(object);
+//			LOGGER.infof("write %s", e.getIn().getHeaders());
+//			
+//		}
+		
+		
+		
 	}
 
 }
