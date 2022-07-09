@@ -16,7 +16,7 @@ public class MockWriter extends AbstractItemWriter {
 
 	@Override
 	public void writeItems(List<Object> items) throws Exception {
-		LOGGER.info("write");
+		LOGGER.infof("write %s", items);
 		
 	}
 

@@ -13,11 +13,17 @@ import org.jboss.logging.Logger;
 public class MockReader extends AbstractItemReader {
 	
 	Logger LOGGER = Logger.getLogger(MockReader.class);
+	
+	int count = 1;
 
 	@Override
 	public Object readItem() throws Exception {
-		LOGGER.info("read");
-		return 1;
+		LOGGER.infof("read %d", count);
+		if (10000 < count ) {
+			return null;
+		} else {
+			return count ++;
+		}
 	}
 
 

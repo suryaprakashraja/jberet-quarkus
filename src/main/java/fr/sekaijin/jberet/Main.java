@@ -9,6 +9,7 @@ import org.jberet.job.model.JobBuilder;
 import org.jberet.job.model.StepBuilder;
 
 import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
+import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
@@ -23,7 +24,6 @@ public class Main implements QuarkusApplication {
 //                      .batchlet("programmaticBatchlet")
 					.reader("myItemReader", new Properties())
 					.writer("myItemWriter", new Properties())
-					.checkpointPolicy("item")
 					.build())
 				.build();
 
@@ -34,6 +34,7 @@ public class Main implements QuarkusApplication {
 	@Override
 	public int run(String... args) throws Exception {
 		start();
+		Quarkus.waitForExit();
 		return 0;
 	}
 
