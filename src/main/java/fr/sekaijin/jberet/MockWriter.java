@@ -24,8 +24,6 @@ public class MockWriter extends AbstractItemWriter {
 //			
 //		}
 		
-		
-		
 	}
 
 }
