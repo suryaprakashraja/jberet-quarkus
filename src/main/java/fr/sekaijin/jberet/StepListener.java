@@ -8,15 +8,17 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-@Named("myStepListener")
+@Named(StepListener.NAME)
 @Dependent
 public class StepListener extends AbstractStepListener {
 	
 
+	static final String NAME = "myStepListener";
+
 	Logger LOGGER = Logger.getLogger(StepListener.class);
 
     @Inject
-    private StepContext stepContext;
+    StepContext stepContext;
 
 	
 	@Override

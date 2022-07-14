@@ -67,6 +67,10 @@
 		<!--     	<artifactId>jberet-se</artifactId> -->
 		<!--     	<version>${version.org.jberet}</version> -->
 		<!--     </dependency> -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

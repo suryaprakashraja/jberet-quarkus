@@ -8,10 +8,11 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-@Named("myItemWriter")
+@Named(MockWriter.NAME)
 @Dependent
 public class MockWriter extends AbstractItemWriter {
 	
+	static final String NAME = "myItemWriter";
 	Logger LOGGER = Logger.getLogger(MockReader.class);
 
 	@Override

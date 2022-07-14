@@ -8,12 +8,13 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-@Named
+@Named(MockBatchlet.NAME)
 @Dependent
-public class ProgrammaticBatchlet extends AbstractBatchlet {
+public class MockBatchlet extends AbstractBatchlet {
 	
 	
-	Logger LOGGER = Logger.getLogger(ProgrammaticBatchlet.class);
+	static final String NAME = "myBatchlet";
+	Logger LOGGER = Logger.getLogger(MockBatchlet.class);
 
 	
     @Override

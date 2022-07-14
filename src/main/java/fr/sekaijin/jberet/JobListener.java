@@ -11,10 +11,12 @@ import org.jboss.logging.Logger;
 import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
 import io.quarkus.runtime.Quarkus;
 
-@Named("myJobListener")
+@Named(JobListener.NAME)
 @Dependent
 public class JobListener extends AbstractJobListener {
 	
+
+	static final String NAME = "myJobListener";
 
 	Logger LOGGER = Logger.getLogger(JobListener.class);
 	
@@ -22,7 +24,7 @@ public class JobListener extends AbstractJobListener {
 	QuarkusJobOperator jobOperator;
 
     @Inject
-    private JobContext jobContext;
+    JobContext jobContext;
 	
 	
 	@Override
