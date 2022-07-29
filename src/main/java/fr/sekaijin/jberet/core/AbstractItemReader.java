@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.core;
 
 import java.io.Serializable;
 

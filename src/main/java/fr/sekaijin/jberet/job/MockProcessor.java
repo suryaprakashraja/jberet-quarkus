@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.job;
 
 import java.util.List;
 
@@ -7,11 +7,13 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import fr.sekaijin.jberet.core.AbstracItemProcessor;
+
 @Named(MockProcessor.NAME)
 @Dependent
 public class MockProcessor extends AbstracItemProcessor<Integer, String> {
 
-	static final String NAME = "myItemProcessor";
+	public static final String NAME = "myItemProcessor";
 	@Inject
 	@BatchProperty(name = "resource")
 	List<String> tr;

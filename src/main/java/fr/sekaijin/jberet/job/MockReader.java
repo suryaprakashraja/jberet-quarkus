@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.job;
 
 import javax.batch.api.BatchProperty;
 import javax.enterprise.context.Dependent;
@@ -7,11 +7,13 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
+import fr.sekaijin.jberet.core.AbstractItemReader;
+
 @Named(MockReader.NAME)
 @Dependent
 public class MockReader extends AbstractItemReader<Integer, Integer> {
 
-	static final String NAME = "myItemReader";
+	public static final String NAME = "myItemReader";
 
 	Logger LOGGER = Logger.getLogger(MockReader.class);
 

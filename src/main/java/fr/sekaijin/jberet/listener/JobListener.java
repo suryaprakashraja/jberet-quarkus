@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.listener;
 
 import javax.batch.api.listener.AbstractJobListener;
 import javax.batch.runtime.context.JobContext;
@@ -16,7 +16,7 @@ import io.quarkus.runtime.Quarkus;
 public class JobListener extends AbstractJobListener {
 	
 
-	static final String NAME = "myJobListener";
+	public static final String NAME = "myJobListener";
 
 	Logger LOGGER = Logger.getLogger(JobListener.class);
 	

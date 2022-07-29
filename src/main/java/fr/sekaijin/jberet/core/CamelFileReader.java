@@ -1,3 +1,4 @@
+package fr.sekaijin.jberet.core;
 	//package fr.sekaijin.jberet;
 //
 //import javax.enterprise.context.Dependent;

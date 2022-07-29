@@ -1,8 +1,10 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.core;
 
 import javax.batch.api.chunk.ItemProcessor;
 
 import org.jboss.logging.Logger;
+
+import fr.sekaijin.jberet.job.MockProcessor;
 
 public abstract class AbstracItemProcessor<I extends Object, O extends Object> implements ItemProcessor {
 

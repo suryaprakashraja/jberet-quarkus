@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.job;
 
 
 import javax.batch.api.AbstractBatchlet;
@@ -13,7 +13,7 @@ import org.jboss.logging.Logger;
 public class MockBatchlet extends AbstractBatchlet {
 	
 	
-	static final String NAME = "myBatchlet";
+	public static final String NAME = "myBatchlet";
 	Logger LOGGER = Logger.getLogger(MockBatchlet.class);
 
 	

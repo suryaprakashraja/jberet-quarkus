@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.job;
 
 import java.util.List;
 
@@ -7,11 +7,13 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
+import fr.sekaijin.jberet.core.AbstractItemWriter;
+
 @Named(MockWriter.NAME)
 @Dependent
 public class MockWriter extends AbstractItemWriter<Integer, String> {
 	
-	static final String NAME = "myItemWriter";
+	public static final String NAME = "myItemWriter";
 	Logger LOGGER = Logger.getLogger(MockReader.class);
 
 	@Override

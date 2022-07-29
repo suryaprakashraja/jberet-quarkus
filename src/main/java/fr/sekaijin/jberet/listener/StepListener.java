@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.listener;
 
 import javax.batch.api.listener.AbstractStepListener;
 import javax.batch.runtime.context.StepContext;
@@ -13,7 +13,7 @@ import org.jboss.logging.Logger;
 public class StepListener extends AbstractStepListener {
 	
 
-	static final String NAME = "myStepListener";
+	public static final String NAME = "myStepListener";
 
 	Logger LOGGER = Logger.getLogger(StepListener.class);
 

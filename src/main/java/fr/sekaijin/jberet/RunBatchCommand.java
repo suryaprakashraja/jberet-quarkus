@@ -1,12 +1,13 @@
 package fr.sekaijin.jberet;
 
-import static fr.sekaijin.jberet.PropertiesBuilder.properties;
-import static fr.sekaijin.jberet.PropertiesBuilder.EMPTY;
+import static fr.sekaijin.jberet.core.PropertiesBuilder.EMPTY;
+import static fr.sekaijin.jberet.core.PropertiesBuilder.properties;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jberet.job.model.Job;
 import org.jberet.job.model.JobBuilder;
 import org.jberet.job.model.Step;
@@ -14,6 +15,12 @@ import org.jberet.job.model.StepBuilder;
 import org.jberet.repository.ApplicationAndJobName;
 import org.jboss.logging.Logger;
 
+import fr.sekaijin.jberet.job.MockBatchlet;
+import fr.sekaijin.jberet.job.MockProcessor;
+import fr.sekaijin.jberet.job.MockReader;
+import fr.sekaijin.jberet.job.MockWriter;
+import fr.sekaijin.jberet.listener.JobListener;
+import fr.sekaijin.jberet.listener.StepListener;
 import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -30,7 +37,7 @@ public class RunBatchCommand implements Runnable
 	@CommandLine.Parameters(paramLabel = "<name>", defaultValue = "picocli", description = "Your view name.")
 	String name;
 	
-	@CommandLine.Option(names = "-e", defaultValue = "100")
+	@CommandLine.Option(names = "-e, --end", defaultValue = "100")
 	int end;
 
 	
@@ -42,6 +49,12 @@ public class RunBatchCommand implements Runnable
 
 	@Inject
 	QuarkusJobOperator jobOperator;
+	
+	@ConfigProperty(name="quarkus.application.name")
+	String app;
+	
+	@ConfigProperty(name="quarkus.application.version")
+	String version;
 
 	long start() {
 		
@@ -65,12 +78,13 @@ public class RunBatchCommand implements Runnable
 				.listener(StepListener.NAME, EMPTY)
 				.build();
 		
-		Job job = new JobBuilder("myJob").step(firstStep).step(secondStep)
+		Job job = new JobBuilder("myJob")
+				.step(firstStep).step(secondStep)
 				.listener(JobListener.NAME, EMPTY)
 				.build();
 		
-		ApplicationAndJobName foo = new ApplicationAndJobName(jobOperator.getBatchEnvironment().getApplicationName(), "myJob");
-		jobOperator.getBatchEnvironment().getJobRepository().addJob(foo , job);
+		ApplicationAndJobName name = new ApplicationAndJobName(app, "myJob");
+		jobOperator.getBatchEnvironment().getJobRepository().addJob(name , job);
 		
 		LOG.info(restart);
 		
@@ -87,6 +101,8 @@ public class RunBatchCommand implements Runnable
 		LOG.infof("Hello %s, go go commando! %d", name, end);
 		long executionId = start();
 		Quarkus.waitForExit();
+		LOG.info(app);
+		LOG.info(version);
 		LOG.infof("Execution # %d", executionId);
 		LOG.info(jobOperator.getJobExecution(executionId).getStartTime());
 		LOG.info(jobOperator.getJobExecution(executionId).getEndTime());

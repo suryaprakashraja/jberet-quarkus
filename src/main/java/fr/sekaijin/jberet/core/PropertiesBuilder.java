@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet;
+package fr.sekaijin.jberet.core;
 
 import java.util.List;
 import java.util.Map;
