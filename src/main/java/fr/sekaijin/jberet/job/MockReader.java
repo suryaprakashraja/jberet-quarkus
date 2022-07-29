@@ -26,7 +26,7 @@ public class MockReader extends AbstractItemReader<Integer, Integer> {
 	@Override
 	public void check(Integer checkpoint) throws Exception {
 		LOGGER.infof("checkpoint %d", checkpoint);
-		count = (null == checkpoint) ? count : Integer.class.cast(checkpoint);
+		count = (null == checkpoint) ? count : checkpoint;
 	}
 
 	@Override
