@@ -1,4 +1,4 @@
-//package fr.sekaijin.jberet;
+	//package fr.sekaijin.jberet;
 //
 //import javax.enterprise.context.Dependent;
 //import javax.inject.Named;

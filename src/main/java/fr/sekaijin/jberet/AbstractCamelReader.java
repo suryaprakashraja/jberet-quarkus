@@ -19,7 +19,7 @@
 //	@Inject
 //	CamelContext context;
 //	
-//	Endpoint file;
+////	Endpoint endPoint;
 //
 //	private PollingConsumer consumer;
 //
@@ -28,8 +28,8 @@
 //	public void open(Serializable checkpoint) throws Exception { 
 //		String uri = getEndPointUri();
 //		LOGGER.infof("init %s", uri);
-//		file=context.getEndpoint(uri);
-//		consumer = file.createPollingConsumer();
+//		Endpoint endPoint = context.getEndpoint(uri);
+//		consumer = endPoint.createPollingConsumer();
 //		consumer.build();
 //		consumer.start();
 //	}

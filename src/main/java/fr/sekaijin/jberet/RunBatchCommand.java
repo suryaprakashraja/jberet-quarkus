@@ -1,7 +1,9 @@
 package fr.sekaijin.jberet;
 
+import static fr.sekaijin.jberet.PropertiesBuilder.properties;
+import static fr.sekaijin.jberet.PropertiesBuilder.EMPTY;
+
 import java.util.List;
-import java.util.Properties;
 
 import javax.inject.Inject;
 
@@ -9,6 +11,7 @@ import org.jberet.job.model.Job;
 import org.jberet.job.model.JobBuilder;
 import org.jberet.job.model.Step;
 import org.jberet.job.model.StepBuilder;
+import org.jberet.repository.ApplicationAndJobName;
 import org.jboss.logging.Logger;
 
 import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
@@ -29,32 +32,53 @@ public class RunBatchCommand implements Runnable
 	
 	@CommandLine.Option(names = "-e", defaultValue = "100")
 	int end;
+
 	
+	@CommandLine.Option(names = "--restart")
+	int restart;
+	
+	@CommandLine.Option(names = "--failed", defaultValue = "false")
+	boolean failed;
+
 	@Inject
 	QuarkusJobOperator jobOperator;
 
 	long start() {
-		final Properties noConfig = new Properties();
 		
 		final Step firstStep = new StepBuilder("step1")
 				.itemCount(5)
-				.reader(MockReader.NAME, MockReader.configure(end))
-				.processor(MockProcessor.NAME, MockProcessor.configure(List.of("V", "Z", "Y", "X", "W")))
-				.writer(MockWriter.NAME, noConfig)
-				.listener(StepListener.NAME, noConfig)
-				.nextOn("*").to("Step2")
+				.reader(MockReader.NAME, properties().add("end", end).build())
+				.processor(MockProcessor.NAME, properties()
+						.add("resource",List.of("V", "Z", "Y", "X", "W"))
+						.add("failed", failed)
+						.add("int", 15)
+						.build())
+				.writer(MockWriter.NAME, EMPTY)
+				.listener(StepListener.NAME, EMPTY)
+	
+				.failOn("FAIL").exitStatus("Step 1 fail")				
+				.next("Step2")
 				.build();
 		
 		final Step secondStep = new StepBuilder("Step2")
-				.batchlet(MockBatchlet.NAME, noConfig)
-				.listener(StepListener.NAME, noConfig)
+				.batchlet(MockBatchlet.NAME, EMPTY)
+				.listener(StepListener.NAME, EMPTY)
 				.build();
 		
-		Job job = new JobBuilder("myJob").step(firstStep).step(secondStep).listener(JobListener.NAME, noConfig)
-
+		Job job = new JobBuilder("myJob").step(firstStep).step(secondStep)
+				.listener(JobListener.NAME, EMPTY)
 				.build();
-
-		return jobOperator.start(job, noConfig);
+		
+		ApplicationAndJobName foo = new ApplicationAndJobName(jobOperator.getBatchEnvironment().getApplicationName(), "myJob");
+		jobOperator.getBatchEnvironment().getJobRepository().addJob(foo , job);
+		
+		LOG.info(restart);
+		
+		if(0==restart){
+			return jobOperator.start(job, EMPTY);
+		} else {
+			return jobOperator.restart(restart, EMPTY);
+		}
 	}
 
 	@Override
@@ -63,6 +87,7 @@ public class RunBatchCommand implements Runnable
 		LOG.infof("Hello %s, go go commando! %d", name, end);
 		long executionId = start();
 		Quarkus.waitForExit();
+		LOG.infof("Execution # %d", executionId);
 		LOG.info(jobOperator.getJobExecution(executionId).getStartTime());
 		LOG.info(jobOperator.getJobExecution(executionId).getEndTime());
 		LOG.info(jobOperator.getJobExecution(executionId).getExitStatus());

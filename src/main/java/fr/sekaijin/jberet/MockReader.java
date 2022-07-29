@@ -1,8 +1,7 @@
 package fr.sekaijin.jberet;
 
-import java.util.Properties;
+import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.enterprise.context.Dependent;
@@ -11,46 +10,39 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-
-
 @Named(MockReader.NAME)
 @Dependent
 public class MockReader extends AbstractItemReader {
-	
+
 	static final String NAME = "myItemReader";
 
 	Logger LOGGER = Logger.getLogger(MockReader.class);
-	
+
 	int count = 1;
-	int end;
-	
 
 	@Inject
 	@BatchProperty(name = "end")
-	String conf;
+	Integer end;
 
-	
+	@Override
+	public void open(Serializable checkpoint) throws Exception {
+		LOGGER.infof("checkpoint %d", checkpoint);
+		count = (null == checkpoint) ? count : Integer.class.cast(checkpoint);
+	}
 
 	@Override
 	public Object readItem() throws Exception {
-		LOGGER.infof("read %d", count);
-		if (end < count ) {
+		if (end < count) {
 			return null;
 		} else {
-			return count ++;
+			LOGGER.infof("read %d", count);
+			return count++;
 		}
 	}
 
-	@PostConstruct
-	public void init() {
-		end = Integer.parseInt(conf);
-	}
-		
-
-	public static Properties configure(int end) {
-		Properties props = new Properties();
-		props.setProperty("end", String.valueOf(end));
-		return props;
+	@Override
+	public Integer checkpointInfo() throws Exception {
+		return count;
 	}
 
 }
