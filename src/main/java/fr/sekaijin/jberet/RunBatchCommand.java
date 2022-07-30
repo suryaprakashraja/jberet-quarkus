@@ -36,28 +36,28 @@ public class RunBatchCommand implements Runnable
 
 	@CommandLine.Parameters(paramLabel = "<name>", defaultValue = "picocli", description = "Your view name.")
 	String name;
-	
+
 	@CommandLine.Option(names = "-e, --end", defaultValue = "100")
 	int end;
 
-	
+
 	@CommandLine.Option(names = "--restart")
 	int restart;
-	
+
 	@CommandLine.Option(names = "--failed", defaultValue = "false")
 	boolean failed;
 
 	@Inject
 	QuarkusJobOperator jobOperator;
-	
+
 	@ConfigProperty(name="quarkus.application.name")
 	String app;
-	
+
 	@ConfigProperty(name="quarkus.application.version")
 	String version;
 
 	long start() {
-		
+
 		final Step firstStep = new StepBuilder("step1")
 				.itemCount(5)
 				.reader(MockReader.NAME, properties().add("end", end).build())
@@ -68,26 +68,26 @@ public class RunBatchCommand implements Runnable
 						.build())
 				.writer(MockWriter.NAME, EMPTY)
 				.listener(StepListener.NAME, EMPTY)
-	
-				.failOn("FAIL").exitStatus("Step 1 fail")				
+
+				.failOn("FAIL").exitStatus("Step 1 fail")
 				.next("Step2")
 				.build();
-		
+
 		final Step secondStep = new StepBuilder("Step2")
 				.batchlet(MockBatchlet.NAME, EMPTY)
 				.listener(StepListener.NAME, EMPTY)
 				.build();
-		
+
 		Job job = new JobBuilder("myJob")
 				.step(firstStep).step(secondStep)
 				.listener(JobListener.NAME, EMPTY)
 				.build();
-		
+
 		ApplicationAndJobName name = new ApplicationAndJobName(app, "myJob");
 		jobOperator.getBatchEnvironment().getJobRepository().addJob(name , job);
-		
+
 		LOG.info(restart);
-		
+
 		if(0==restart){
 			return jobOperator.start(job, EMPTY);
 		} else {

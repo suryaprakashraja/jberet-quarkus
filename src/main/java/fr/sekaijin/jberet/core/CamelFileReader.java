@@ -7,7 +7,7 @@ package fr.sekaijin.jberet.core;
 //@Named("CamelItemReader")
 //@Dependent
 //public class CamelFileReader extends AbstractCamelReader {
-//	
+//
 //	private static final String FILE_URL = "file:/home/jeanyves/jberet-quarkus/test/?include=.*\\.xml";
 //
 //	@Override

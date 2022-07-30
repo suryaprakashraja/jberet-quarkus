@@ -19,7 +19,7 @@ public abstract class AbstractItemReader<C extends Serializable, O extends Objec
 
 	@Override
 	public abstract O readItem() throws Exception;
-	
+
 	@Override
 	public C checkpointInfo() throws Exception {
 		return null;
@@ -27,6 +27,6 @@ public abstract class AbstractItemReader<C extends Serializable, O extends Objec
 
 	public void check(C checkpoint) throws Exception {
 		return;
-	};
+	}
 
 }

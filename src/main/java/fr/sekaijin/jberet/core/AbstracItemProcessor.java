@@ -15,7 +15,7 @@ public abstract class AbstracItemProcessor<I extends Object, O extends Object> i
 	}
 
 	public abstract O process(I item) throws Exception;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object processItem(Object item) throws Exception {

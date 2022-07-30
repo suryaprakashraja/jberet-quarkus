@@ -11,7 +11,7 @@ import org.jboss.logging.Logger;
 @Named(StepListener.NAME)
 @Dependent
 public class StepListener extends AbstractStepListener {
-	
+
 
 	public static final String NAME = "myStepListener";
 
@@ -20,7 +20,7 @@ public class StepListener extends AbstractStepListener {
     @Inject
     StepContext stepContext;
 
-	
+
 	@Override
 	public void afterStep() throws Exception {
 		LOGGER.infof("afterStep %s", stepContext.getStepName());

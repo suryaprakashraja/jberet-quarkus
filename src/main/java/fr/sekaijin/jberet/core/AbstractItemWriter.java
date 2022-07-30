@@ -15,7 +15,7 @@ public abstract class AbstractItemWriter<C extends Serializable, O extends Objec
 
 	public void check(C checkpoint) throws Exception {
 		return;
-	};
+	}
 
 	@Override
 	public void close() throws Exception {

@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class PropertiesBuilder {
 	Properties props = new Properties();
-	
+
 	final public static Properties EMPTY = new Properties();
 
 
@@ -26,10 +26,10 @@ public class PropertiesBuilder {
 		}
 		return this;
 	}
-	
+
 	public Properties build() {
 		return props;
 	}
-	
+
 
 }

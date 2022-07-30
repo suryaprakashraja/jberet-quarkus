@@ -16,17 +16,17 @@ package fr.sekaijin.jberet.core;
 //
 //
 //	Logger LOGGER = Logger.getLogger(CamelFileReader.class);
-//	
+//
 //	@Inject
 //	CamelContext context;
-//	
+//
 ////	Endpoint endPoint;
 //
 //	private PollingConsumer consumer;
 //
-//	
+//
 //	@Override
-//	public void open(Serializable checkpoint) throws Exception { 
+//	public void open(Serializable checkpoint) throws Exception {
 //		String uri = getEndPointUri();
 //		LOGGER.infof("init %s", uri);
 //		Endpoint endPoint = context.getEndpoint(uri);
