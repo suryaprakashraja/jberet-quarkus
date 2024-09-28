@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet.core;
+package ltim.sample.jberetQuartz.core;
 	//package fr.sekaijin.jberet;
 //
 //import javax.enterprise.context.Dependent;

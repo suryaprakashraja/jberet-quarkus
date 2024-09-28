@@ -1,8 +1,8 @@
-package fr.sekaijin.jberet.core;
+package ltim.sample.jberetQuartz.core;
 
 import java.io.Serializable;
 
-import javax.batch.api.chunk.ItemReader;
+import jakarta.batch.api.chunk.ItemReader;
 
 public abstract class AbstractItemReader<C extends Serializable, O extends Object> implements ItemReader {
 

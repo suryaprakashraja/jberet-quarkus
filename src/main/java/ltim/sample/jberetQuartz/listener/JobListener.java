@@ -1,10 +1,10 @@
-package fr.sekaijin.jberet.listener;
+package ltim.sample.jberetQuartz.listener;
 
-import javax.batch.api.listener.AbstractJobListener;
-import javax.batch.runtime.context.JobContext;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.batch.api.listener.AbstractJobListener;
+import jakarta.batch.runtime.context.JobContext;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.jboss.logging.Logger;
 

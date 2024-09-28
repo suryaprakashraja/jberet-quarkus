@@ -1,13 +1,13 @@
-package fr.sekaijin.jberet.job;
+package ltim.sample.jberetQuartz.job;
 
 import java.util.List;
 
-import javax.batch.api.BatchProperty;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.batch.api.BatchProperty;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
-import fr.sekaijin.jberet.core.AbstracItemProcessor;
+import ltim.sample.jberetQuartz.core.AbstracItemProcessor;
 
 @Named(MockProcessor.NAME)
 @Dependent

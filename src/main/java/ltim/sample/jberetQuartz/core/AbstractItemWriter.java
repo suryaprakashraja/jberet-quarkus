@@ -1,9 +1,9 @@
-package fr.sekaijin.jberet.core;
+package ltim.sample.jberetQuartz.core;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.batch.api.chunk.ItemWriter;
+import jakarta.batch.api.chunk.ItemWriter;
 
 public abstract class AbstractItemWriter<C extends Serializable, O extends Object> implements ItemWriter {
 

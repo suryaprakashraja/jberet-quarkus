@@ -1,4 +1,4 @@
-package fr.sekaijin.jberet.core;
+package ltim.sample.jberetQuartz.core;
 
 import java.util.List;
 import java.util.Map;

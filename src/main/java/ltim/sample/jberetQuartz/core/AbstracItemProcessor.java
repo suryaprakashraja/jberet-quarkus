@@ -1,10 +1,9 @@
-package fr.sekaijin.jberet.core;
+package ltim.sample.jberetQuartz.core;
 
-import javax.batch.api.chunk.ItemProcessor;
+import jakarta.batch.api.chunk.ItemProcessor;
 
+import ltim.sample.jberetQuartz.job.MockProcessor;
 import org.jboss.logging.Logger;
-
-import fr.sekaijin.jberet.job.MockProcessor;
 
 public abstract class AbstracItemProcessor<I extends Object, O extends Object> implements ItemProcessor {
 

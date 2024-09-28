@@ -1,13 +1,14 @@
-package fr.sekaijin.jberet;
+package ltim.sample.jberetQuartz;
 
-import static fr.sekaijin.jberet.core.PropertiesBuilder.EMPTY;
-import static fr.sekaijin.jberet.core.PropertiesBuilder.properties;
+import static ltim.sample.jberetQuartz.core.PropertiesBuilder.EMPTY;
+import static ltim.sample.jberetQuartz.core.PropertiesBuilder.properties;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
+import ltim.sample.jberetQuartz.job.MockReader;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jberet.job.model.Job;
 import org.jberet.job.model.JobBuilder;
@@ -17,12 +18,11 @@ import org.jberet.repository.ApplicationAndJobName;
 import org.jberet.runtime.JobExecutionImpl;
 import org.jboss.logging.Logger;
 
-import fr.sekaijin.jberet.job.MockBatchlet;
-import fr.sekaijin.jberet.job.MockProcessor;
-import fr.sekaijin.jberet.job.MockReader;
-import fr.sekaijin.jberet.job.MockWriter;
-import fr.sekaijin.jberet.listener.JobListener;
-import fr.sekaijin.jberet.listener.StepListener;
+import ltim.sample.jberetQuartz.job.MockBatchlet;
+import ltim.sample.jberetQuartz.job.MockProcessor;
+import ltim.sample.jberetQuartz.job.MockWriter;
+import ltim.sample.jberetQuartz.listener.JobListener;
+import ltim.sample.jberetQuartz.listener.StepListener;
 import io.quarkiverse.jberet.runtime.QuarkusJobOperator;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;

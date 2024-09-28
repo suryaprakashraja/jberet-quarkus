@@ -1,13 +1,13 @@
-package fr.sekaijin.jberet.job;
+package ltim.sample.jberetQuartz.job;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
 
 import org.jboss.logging.Logger;
 
-import fr.sekaijin.jberet.core.AbstractItemWriter;
+import ltim.sample.jberetQuartz.core.AbstractItemWriter;
 
 @Named(MockWriter.NAME)
 @Dependent
